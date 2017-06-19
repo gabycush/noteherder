@@ -5,7 +5,7 @@ import './NoteForm.css'
 class NoteForm extends Component {
   constructor(props){
     super(props)
-    
+
     if(props.currentNote != null){
       const active = props.currentNote
       this.state = {
@@ -46,7 +46,7 @@ class NoteForm extends Component {
 
   deleteNote = (ev) => {
     const note = {...this.state.note}
-    this.props.deleteNote(note)
+    this.props.delNote(note)
   }
 
   render() {

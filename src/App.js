@@ -48,6 +48,12 @@ class App extends Component {
     this.setState({ notes })
   }
 
+  delNote = (note) => {
+    const notes = {...this.state.notes}
+    notes[note.id] = null
+    this.setState({ notes })
+  }
+
   signedIn = () => {
     return this.state.uid
   }
@@ -62,13 +68,23 @@ class App extends Component {
   signOut = () => {
     auth
       .signOut()
+      .then(
+        () => {
+          base.removeBinding(this.ref)
+        }
+      )
   }
 
   renderMain = () => {
+    const actions = {
+      notes: this.state.notes,
+      saveNote: this.saveNote,
+      delNote: this.delNote,
+    }
     return (
       <div>
         <SignOut signOut={this.signOut} />
-        <Main notes={this.state.notes} saveNote={this.saveNote} />
+        <Main {...actions} />
       </div>
     )
   }
